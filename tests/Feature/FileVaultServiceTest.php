@@ -30,4 +30,16 @@ class FileVaultServiceTest extends TestCase
 
         $this->assertIsArray($this->fileVault->readPhotoDir());
     }
+
+     /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function testUpdatingDatabase()
+    {
+        // I dont like how i have this running the same class i am working on.
+        $files = $this->fileVault->readPhotoDir();
+        $this->assertTrue($this->fileVault->updatePhotoRecords($files));
+    }
 }

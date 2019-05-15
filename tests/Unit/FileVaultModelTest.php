@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class FileVaultModelTest extends TestCase
 {
     // use DatabaseMigrations;
-    use DatabaseTransactions;
+    //use DatabaseTransactions;
     /**
      * A very basic create record in the file vault
      *

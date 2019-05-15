@@ -42,8 +42,10 @@ class FileVaultUpdate extends Command
     public function handle()
     {
         //
-echo "\tprocessing:\n";
+
         $result = $this->fileVault->readPhotoDir();
-        var_dump($result);
+        
+        return $this->fileVault->updatePhotoRecords($result);
+        
     }
 }
