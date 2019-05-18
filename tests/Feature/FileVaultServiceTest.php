@@ -38,8 +38,16 @@ class FileVaultServiceTest extends TestCase
      */
     public function testUpdatingDatabase()
     {
-        // I dont like how i have this running the same class i am working on.
+        
         $files = $this->fileVault->readPhotoDir();
         $this->assertTrue($this->fileVault->updatePhotoRecords($files));
+    }
+
+    public function testGetPhotoRecords()
+    {
+        
+        $files = $this->fileVault->getPhotoRecords();
+        
+        $this->assertIsArray($files);
     }
 }

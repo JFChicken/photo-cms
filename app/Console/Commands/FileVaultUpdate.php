@@ -44,8 +44,9 @@ class FileVaultUpdate extends Command
         //
 
         $result = $this->fileVault->readPhotoDir();
-        
-        return $this->fileVault->updatePhotoRecords($result);
+        $this->info('Found: '.count($result).' Images.');
+        $processed = $this->fileVault->updatePhotoRecords($result);
+        $this->info("Processed: {$processed} Images.");
         
     }
 }

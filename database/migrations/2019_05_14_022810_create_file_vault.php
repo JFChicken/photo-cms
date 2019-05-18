@@ -14,7 +14,7 @@ class CreateFileVault extends Migration
     public function up()
     {
         Schema::create('FileVault', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('fileVaultId');
             $table->string('fileName');
             $table->string('folder');
             $table->string('year');

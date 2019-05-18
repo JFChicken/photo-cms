@@ -18,7 +18,7 @@ try:
             cover.save(final[1][1], image.format)
 except Exception as e:
     print("Execption: " + str(e))
-    print("id: ",final[1][1],":false")
+    print("false")
 
 else:
-    print("id: ",final[2][1],":true")
+    print("true")

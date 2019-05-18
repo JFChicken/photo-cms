@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FileVault extends Model
 {
     //
+    protected $primaryKey = 'fileVaultId';
     protected $table = 'FileVault';
     protected $fillable = [
         'fileName',
