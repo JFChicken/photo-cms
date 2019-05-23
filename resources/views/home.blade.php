@@ -8,15 +8,17 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="row">
-                            
+                        
                             @foreach ($data as $item)    
-                                    <a href="{{asset($item['img'])}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-2">
-                                    <i class="fas fa-camera-retro"></i>
-                                    <!-- <img src="{{asset($item['thumb'])}}" class="img-fluid"> -->
+                            <div id="mygallery" >
+                            <a href="{{asset($item['thumbnail'])}}">
+                                    <!-- <i class="fas fa-camera-retro"></i> -->
+                                    <img src="{{asset($item['thumbnail'])}}">
                                     </a>
+                            </div>
                             @endforeach
                         </div>
-
+                        
                     </div>
                 </div>
             </div>
