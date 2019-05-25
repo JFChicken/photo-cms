@@ -9,7 +9,7 @@
                     <div class="col-md-10">
                         <div class="row">
                         
-                            @foreach ($data as $item)    
+                            @foreach ($data as $item)
                             <div id="mygallery" >
                             <a href="{{asset($item['thumbnail'])}}">
                                     <!-- <i class="fas fa-camera-retro"></i> -->
