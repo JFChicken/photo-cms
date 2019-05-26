@@ -205,4 +205,10 @@ class FileVault
 
     }
 
+    public function truncateRecords(){
+
+        return $this->fileVaultModel::truncate();
+
+    }
+
 }
