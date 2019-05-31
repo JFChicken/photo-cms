@@ -12,7 +12,7 @@ class FileVaultUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'fileVault:update';
+    protected $signature = 'fileVault:update {--boldly : Force a DB Record purge}';
 
     /**
      * The console command description.
@@ -42,7 +42,12 @@ class FileVaultUpdate extends Command
     public function handle()
     {
         //
-
+        if ( $this->option('boldly') && $this->confirm('Do you want to reset the DB?')) {
+            
+            $this->error("Clearing DB Records");
+            $result = $this->fileVault->truncateRecords();
+            $this->info("Readding images... ");
+        }
         $result = $this->fileVault->readPhotoDir();
         $this->info('Found: '.count($result).' Images.');
         $processed = $this->fileVault->updatePhotoRecords($result);

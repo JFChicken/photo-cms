@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\FileVault as FileVaultModel;
-
+use App\Services\FileVault;
 
 class PhotoProcess
 {
@@ -17,11 +17,17 @@ class PhotoProcess
         $this->fileVaultModel = $fileVault;
     }
 
-    public function processRecords()
+    /**
+     *  Pulls photo files for the view
+     */
+    static public function processRecords()
     {
+        // This is not how i want to do this but it will work for now
+        $newClass = new FileVault(new FileVaultModel());
+        
+        $data = $newClass->getViewUrls();
 
-        $files = $this->getPhotos();
-        return $this->processFiles($files);
+        return $data;
         
     }
 

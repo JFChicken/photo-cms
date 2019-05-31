@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Services\PhotoProcess;
 
 class DisplayPhotoController extends Controller
 {
@@ -14,23 +14,8 @@ class DisplayPhotoController extends Controller
      */
     public function index()
     {
-        $data = [];
-        $count = 0;
-        $files = Storage::allFiles('public/photos');
+        $data = PhotoProcess::processRecords();
 
-        foreach ($files as $file) {
-            if (strpos($file, '.jpg') !== false) {
-                $url = Storage::url($file);
-
-                $link = "storage/thumbs/thumb{$count}.jpg";
-                //$img = Image::make(Storage::get($file))->resize(320, 240)->save($link);
-                $data[] = [
-                    'img' => Storage::url($file),
-                    'thumb' => $link
-                ];
-                $count++;
-            }
-        }
         return view('home', ['data' => $data]);
     }
 

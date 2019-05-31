@@ -42,7 +42,7 @@ class thumbnailImage extends Command
     {
 
         // Get the list of un thumbnailed records to process
-        $files = $this->fileVault->getPhotoRecords();
+        $files = $this->fileVault->getPhotoRecords(false);
         $this->output->progressStart(count($files));
         foreach ($files as $fileId=>$file) {
                    

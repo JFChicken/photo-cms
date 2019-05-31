@@ -1,4 +1,5 @@
 import sys
+import random
 from PIL import Image
 from resizeimage import resizeimage
 
@@ -13,7 +14,7 @@ try:
     # Open the given sent file
     with open(final[0][1], 'r+b') as f:
         with Image.open(f) as image:
-            cover = resizeimage.resize_cover(image, [250, 200])
+            cover = resizeimage.resize_cover(image, [random.randint(200,250), random.randint(150,200)])
             
             cover.save(final[1][1], image.format)
 except Exception as e:
