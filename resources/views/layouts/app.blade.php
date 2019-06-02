@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js h-100" lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale') }}">
 
 <head>
   <meta charset="utf-8">
@@ -11,36 +11,30 @@
 
   <title>{{ config('app.name', 'BlogCMS') }}</title>
 
-
+  <link rel="stylesheet" href="source/lightbox/css/lightbox.css" />
   <link rel="stylesheet" href="justifiedGallery/justifiedGallery.min.css" />
-
+  
   <script src="source/jquery/jquery-3.4.1.min.js"></script>
   <script src="justifiedGallery/jquery.justifiedGallery.min.js"></script>
-  
+  <script src="source/lightbox/js/lightbox.js"></script>
+
 </head>
 
-<body class="h-100">
- 
-            <h3 class="page-title">@yield('page_title')</h3>
-
-    
-          <!-- End Page Header -->
-          <div class="row">
-            <!-- Content -->
-            @yield('content')
-            <!-- End Content -->
-            <script>
-// $("#mygallery").justifiedGallery();
-</script>
-          </div>
-    
-
-
+<body>
+  <h3 class="page-title">@yield('page_title')</h3>
+  <!-- End Page Header -->
+  <div class="row">
+    <!-- Content -->
+    @yield('content')
+    <!-- End Content -->
+  </div>
   <!-- Scripts -->
-
-  <!--LOCAL SCRIPTS -->
-  <script src="{{ asset('js/app.js') }}"></script>
+<div>
+  @yield('pageScripts')
+<!--LOCAL SCRIPTS -->
+<script src="{{ asset('js/app.js') }}"></script>
+</div>
   
-</body>
 
+</body>
 </html>
