@@ -192,19 +192,22 @@ class FileVault
     /**
      *  Looks at the DB records that have thumbnails and creates reletive urls for the view to display
      */
-    public function getViewUrls(){
+    public function getViewUrls($filter){
 
         $records = $this->fileVaultModel::where(['thumbnailCreated'=>true])->get();
-
         $files=[];
-        foreach ($records as $record){
+        // Newest first
+        foreach ($records->sortByDesc($filter) as $record){
             $files[$record->fileVaultId] = $this->createFileUrls($record,true);
         }
         
         return $files;
 
     }
-
+    /**
+     *  DEVELOPER command; to clear out the DB so it can be reinitilized 
+     * 
+     */
     public function truncateRecords(){
 
         return $this->fileVaultModel::truncate();

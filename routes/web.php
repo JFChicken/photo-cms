@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'DisplayPhotoController@index');
+Route::get('/{filter?}', 'DisplayPhotoController@index');

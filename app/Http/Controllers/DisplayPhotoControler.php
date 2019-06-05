@@ -12,10 +12,10 @@ class DisplayPhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($filter = null)
     {
-        $data = PhotoProcess::processRecords();
-
+        $data = PhotoProcess::processRecords($filter);
+        
         return view('home', ['data' => $data]);
     }
 

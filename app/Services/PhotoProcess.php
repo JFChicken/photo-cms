@@ -20,12 +20,28 @@ class PhotoProcess
     /**
      *  Pulls photo files for the view
      */
-    static public function processRecords()
+    static public function processRecords($filter)
     {
+        
         // This is not how i want to do this but it will work for now
         $newClass = new FileVault(new FileVaultModel());
         
-        $data = $newClass->getViewUrls();
+        // Convert the filter varable to a column in the fV table
+         switch ($filter) {
+            case 'event':
+                $filter = 'folder';
+                break;
+
+            case 'yearly':
+                $filter = 'year';
+                break;
+
+            default:
+                $filter = 'updated_at';
+                break;
+        }
+
+        $data = $newClass->getViewUrls($filter);
 
         return $data;
         
