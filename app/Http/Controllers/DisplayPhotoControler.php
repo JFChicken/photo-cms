@@ -7,6 +7,12 @@ use App\Services\PhotoProcess;
 
 class DisplayPhotoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class DisplayPhotoController extends Controller
     {
         $data = PhotoProcess::processRecords($filter);
         
-        return view('home', ['data' => $data]);
+        return view('photo', ['data' => $data]);
     }
 
     /**
