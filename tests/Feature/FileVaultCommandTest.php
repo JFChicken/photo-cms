@@ -15,7 +15,7 @@ class FileVaultCommandTest extends TestCase
      */
     public function testFileVaultCommand()
     {
-        $this->artisan('fileVault:update')->assertExitCode(0);
+        $this->artisan('fV:cache')->assertExitCode(0);
         //  $this->assertTrue(true);
     }
 }

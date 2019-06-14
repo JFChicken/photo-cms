@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CharacterSheets extends Migration
+class CharacterBasics extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,17 @@ class CharacterSheets extends Migration
     public function up()
     {
         //
+        Schema::create('CharacterBasics', function (Blueprint $table) {
+            $table->bigIncrements('characterBasicsId');
+            $table->bigInteger('characterSheetId');
+            // Content
+            $table->string('characterName', 254);
+            $table->string('characterJobTitle', 254);
 
-        Schema::create('CharacterSheet', function (Blueprint $table) {
-            $table->bigIncrements('characterSheetId');
-            $table->json('character');
-            $table->bigInteger('userId');
+            //TIME KEEPING
             $table->timestamps();
             $table->softDeletes();
         });
-
     }
 
     /**
@@ -33,6 +35,6 @@ class CharacterSheets extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('CharacterSheet');
+        Schema::dropIfExists('CharacterBasics');
     }
 }
