@@ -14,15 +14,36 @@ class CharacterBasicsModelTest extends TestCase
 {
     // use DatabaseMigrations;
     //use DatabaseTransactions;
-    /**
-     * A very basic create record in the file vault
-     *
-     * @return void
-     */
+
     public function testCreateNewRecord()
+    {
+        $newCharacter = new CharacterBasics(
+            [
+                'userId' => 1,
+                'characterName' => 'fakerName',
+                'characterJobTitle' => 'MASTER KEEPER',
+            ]
+        );
+
+        $this->assertTrue($newCharacter->save(), 'Canont create new record');
+        // What do we do for clean up?
+    }
+
+    public function testUpdateRecord()
     {
 
 
-        $this->assertTrue(false);
+        // $this->assertTrue(false);
+    }
+
+    public function testDeleteRecord()
+    {
+        // $this->assertTrue(false);
+    }
+
+
+    public function testRestoreRecord()
+    {
+        // $this->assertTrue(false);
     }
 }

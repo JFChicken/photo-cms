@@ -15,4 +15,7 @@ class CharacterBasics extends Model
          'characterName',
          'characterJobTitle',
      ];
+     protected $garded = [
+        'userId'
+     ];
 }

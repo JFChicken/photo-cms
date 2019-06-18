@@ -38,7 +38,6 @@ class FileVaultServiceTest extends TestCase
      */
     public function testUpdatingDatabase()
     {
-        
         $files = $this->fileVault->readPhotoDir();
         // WE need to set up one file for this test to work correctly
         $this->assertTrue(count($files)>=1,'Count is off');

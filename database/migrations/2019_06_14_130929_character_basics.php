@@ -16,7 +16,7 @@ class CharacterBasics extends Migration
         //
         Schema::create('CharacterBasics', function (Blueprint $table) {
             $table->bigIncrements('characterBasicsId');
-            $table->bigInteger('characterSheetId');
+            $table->bigInteger('userId');
             // Content
             $table->string('characterName', 254);
             $table->string('characterJobTitle', 254);

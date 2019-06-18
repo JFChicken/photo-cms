@@ -17,8 +17,10 @@ class CharacterSheets extends Migration
 
         Schema::create('CharacterSheet', function (Blueprint $table) {
             $table->bigIncrements('characterSheetId');
-            $table->json('character');
+            $table->json('characterJson');
+            $table->bigInteger('characterId');
             $table->bigInteger('userId');
+
             $table->timestamps();
             $table->softDeletes();
         });
