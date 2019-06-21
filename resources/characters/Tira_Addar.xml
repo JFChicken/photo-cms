@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.3" release="8|CoreRPG:4">
+	<character>
+		<abilities>
+			<charisma>
+				<bonus type="number">0</bonus>
+				<save type="number">0</save>
+				<savemodifier type="number">0</savemodifier>
+				<saveprof type="number">0</saveprof>
+				<score type="number">10</score>
+			</charisma>
+			<constitution>
+				<bonus type="number">2</bonus>
+				<save type="number">2</save>
+				<savemodifier type="number">0</savemodifier>
+				<saveprof type="number">0</saveprof>
+				<score type="number">14</score>
+			</constitution>
+			<dexterity>
+				<bonus type="number">3</bonus>
+				<save type="number">5</save>
+				<savemodifier type="number">0</savemodifier>
+				<saveprof type="number">1</saveprof>
+				<score type="number">16</score>
+			</dexterity>
+			<intelligence>
+				<bonus type="number">-1</bonus>
+				<save type="number">-1</save>
+				<savemodifier type="number">0</savemodifier>
+				<saveprof type="number">0</saveprof>
+				<score type="number">8</score>
+			</intelligence>
+			<strength>
+				<bonus type="number">-1</bonus>
+				<save type="number">1</save>
+				<savemodifier type="number">0</savemodifier>
+				<saveprof type="number">1</saveprof>
+				<score type="number">8</score>
+			</strength>
+			<wisdom>
+				<bonus type="number">3</bonus>
+				<save type="number">3</save>
+				<savemodifier type="number">0</savemodifier>
+				<saveprof type="number">0</saveprof>
+				<score type="number">16</score>
+			</wisdom>
+		</abilities>
+		<adventurelist>
+			<id-00001>
+				<name type="string">A hobgoblin knocked my ass out, and Nadarr had to save me. Shit pissed me off.</name>
+			</id-00001>
+			<id-00002>
+				<name type="string">Always getting my ass kicked.</name>
+			</id-00002>
+			<id-00003>
+				<name type="string">I saved Elofri from Pterafolk, and now hate them all as savages.</name>
+			</id-00003>
+		</adventurelist>
+		<age type="string">21</age>
+		<alignment type="string">Lawful Good</alignment>
+		<appearance type="string">Brown hair\nBrown eyes</appearance>
+		<background type="string">Urchin</background>
+		<backgroundlink type="windowreference">
+			<class>reference_background</class>
+			<recordname>reference.backgrounddata.urchin@DD PHB Deluxe</recordname>
+		</backgroundlink>
+		<bonds type="string">I owe a debt I can never repay to the person who took pity on me.</bonds>
+		<classes>
+			<id-00001>
+				<casterlevelinvmult type="number">0</casterlevelinvmult>
+				<casterpactmagic type="number">0</casterpactmagic>
+				<hddie type="dice">d8</hddie>
+				<hdused type="number">0</hdused>
+				<level type="number">2</level>
+				<name type="string">Monk</name>
+				<shortcut type="windowreference">
+					<class>reference_class</class>
+					<recordname>reference.classdata.monk@DD PHB Deluxe</recordname>
+				</shortcut>
+			</id-00001>
+			<id-00002>
+				<casterlevelinvmult type="number">0</casterlevelinvmult>
+				<casterpactmagic type="number">0</casterpactmagic>
+				<hddie type="dice">d8</hddie>
+				<hdused type="number">0</hdused>
+				<level type="number">2</level>
+				<name type="string">Rogue</name>
+				<shortcut type="windowreference">
+					<class>reference_class</class>
+					<recordname>reference.classdata.rogue@DD PHB Deluxe</recordname>
+				</shortcut>
+			</id-00002>
+		</classes>
+		<coins>
+			<slot1>
+				<amount type="number">75</amount>
+				<name type="string">GP</name>
+			</slot1>
+			<slot2>
+				<amount type="number">43</amount>
+				<name type="string">SP</name>
+			</slot2>
+			<slot3>
+				<amount type="number">19</amount>
+				<name type="string">CP</name>
+			</slot3>
+			<slot4>
+				<amount type="number">0</amount>
+			</slot4>
+			<slot5>
+				<amount type="number">0</amount>
+			</slot5>
+			<slot6>
+				<amount type="number">0</amount>
+			</slot6>
+		</coins>
+		<defenses>
+			<ac>
+				<armor type="number">0</armor>
+				<misc type="number">0</misc>
+				<prof type="number">1</prof>
+				<shield type="number">0</shield>
+				<stat2 type="string">wisdom</stat2>
+				<temporary type="number">0</temporary>
+				<total type="number">16</total>
+			</ac>
+		</defenses>
+		<deity type="string">Ilmater, Torm, and Tyr</deity>
+		<encumbrance>
+			<encumbered type="number">40</encumbered>
+			<encumberedheavy type="number">80</encumberedheavy>
+			<liftpushdrag type="number">240</liftpushdrag>
+			<load type="number">90</load>
+			<max type="number">120</max>
+		</encumbrance>
+		<exp type="number">3264</exp>
+		<expneeded type="number">2700</expneeded>
+		<featlist>
+			<id-00001>
+				<locked type="number">1</locked>
+				<name type="string">Tough</name>
+				<text type="formattedtext">
+					<p>Your hit point maximum increases by an amount equal to twice your level when you gain this feat. Whenever you gain a level thereafter, your hit point maximum increases by an additional 2 hit points.</p>
+				</text>
+			</id-00001>
+		</featlist>
+		<featurelist>
+			<id-00001>
+				<level type="number">1</level>
+				<locked type="number">1</locked>
+				<name type="string">Martial Arts</name>
+				<source type="string">Monk</source>
+				<text type="formattedtext">
+					<p>At 1st level, your practice of martial arts gives you mastery of combat styles that use unarmed strikes and monk weapons, which are shortswords and any simple melee weapons that don't have the two-handed or heavy property.</p>
+					<p>You gain the following benefits while you are unarmed or wielding only monk weapons and you aren't wearing armor or wielding a shield:</p>
+					<list>
+						<li>You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons.</li>
+						<li>You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. This die changes as you gain monk levels, as shown in the Martial Arts column of the Monk table.</li>
+						<li>When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. For example, if you take the Attack action and attack with a quarterstaff, you can also make an unarmed strike as a bonus action, assuming you haven't already taken a bonus action this turn.</li>
+					</list>
+					<p>Certain monasteries use specialized forms of the monk weapons. For example, you might use a club that is two lengths of wood connected by a short chain (called a nunchaku) or a sickle with a shorter, straighter blade (called a kama). Whatever name you use for a monk weapon, you can use the game statistics provided for the weapon in chapter 5.</p>
+				</text>
+			</id-00001>
+			<id-00002>
+				<level type="number">1</level>
+				<locked type="number">1</locked>
+				<name type="string">Unarmored Defense</name>
+				<source type="string">Monk</source>
+				<text type="formattedtext">
+					<p>Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.</p>
+				</text>
+			</id-00002>
+			<id-00003>
+				<locked type="number">1</locked>
+				<name type="string">City Secrets</name>
+				<source type="string">Urchin</source>
+				<text type="formattedtext">
+					<p>You know the secret patterns and flow to cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow.</p>
+				</text>
+			</id-00003>
+			<id-00004>
+				<level type="number">2</level>
+				<locked type="number">1</locked>
+				<name type="string">Ki</name>
+				<source type="string">Monk</source>
+				<text type="formattedtext">
+					<p>Starting at 2nd level, your training allows you to harness the mystic energy of ki. Your access to this energy is represented by a number of ki points. Your monk level determines the number of points you have, as shown in the Ki Points column of the Monk table. You can spend these points to fuel various ki features. You start knowing three such features: Flurry of Blows, Patient Defense, and Step of the Wind. You learn more ki features as you gain levels in this class. When you spend a ki point, it is unavailable until you finish a short or long rest, at the end of which you draw all of your expended ki back into yourself. You must spend at least 30 minutes of the rest meditating to regain your ki points.</p>
+					<p>Some of your ki features require your target to make a saving throw to resist the feature's effects. The saving throw DC is calculated as follows:</p>
+					<p><b>Ki save DC </b>= 8 + your proficiency bonus + your Wisdom modifier</p>
+					<p><b>Flurry of Blows</b></p>
+					<p>Immediately after you take the Attack action on your turn, you can spend 1 ki point to make two unarmed strikes as a bonus action.</p>
+					<p><b>Patient Defense</b></p>
+					<p>You can spend 1 ki point to take the Dodge action as a bonus action on your turn.</p>
+					<p><b>Step of the Wind</b></p>
+					<p>You can spend 1 ki point to take the Disengage or Dash action as a bonus action on your turn, and your jump distance is doubled for the turn.</p>
+				</text>
+			</id-00004>
+			<id-00005>
+				<level type="number">2</level>
+				<locked type="number">1</locked>
+				<name type="string">Unarmored Movement</name>
+				<source type="string">Monk</source>
+				<text type="formattedtext">
+					<p>Starting at 2nd level, your speed increases by 10 feet while you are not wearing armor or wielding a shield. This bonus increases when you reach certain monk levels, as shown in the Monk table.</p>
+					<p>At 9th level, you gain the ability to move along vertical surfaces and across liquids on your turn without falling during the move.</p>
+				</text>
+			</id-00005>
+			<id-00006>
+				<level type="number">1</level>
+				<locked type="number">1</locked>
+				<name type="string">Thieves' Cant</name>
+				<source type="string">Rogue</source>
+				<text type="formattedtext">
+					<p>During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly.</p>
+					<p>In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves' guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.</p>
+				</text>
+			</id-00006>
+			<id-00007>
+				<level type="number">1</level>
+				<locked type="number">1</locked>
+				<name type="string">Sneak Attack</name>
+				<source type="string">Rogue</source>
+				<text type="formattedtext">
+					<p>Beginning at 1st level, you know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon.</p>
+					<p>You don't need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll.</p>
+					<p>The amount of the extra damage increases as you gain levels in this class, as shown in the Sneak Attack column of the Rogue table.</p>
+				</text>
+			</id-00007>
+			<id-00008>
+				<level type="number">1</level>
+				<locked type="number">1</locked>
+				<name type="string">Expertise</name>
+				<source type="string">Rogue</source>
+				<text type="formattedtext">
+					<p>At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.</p>
+					<p>At 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit.</p>
+				</text>
+			</id-00008>
+			<id-00009>
+				<level type="number">2</level>
+				<locked type="number">1</locked>
+				<name type="string">Cunning Action</name>
+				<source type="string">Rogue</source>
+				<text type="formattedtext">
+					<p>Starting at 2nd level, your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action.</p>
+				</text>
+			</id-00009>
+		</featurelist>
+		<flaws type="string">I'd rather kill someone in their sleep then fight fair.\nI drink to excess to drown my grief.</flaws>
+		<gender type="string">Female</gender>
+		<height type="string">5' 4''</height>
+		<hp>
+			<deathsavefail type="number">0</deathsavefail>
+			<deathsavesuccess type="number">0</deathsavesuccess>
+			<temporary type="number">0</temporary>
+			<total type="number">39</total>
+			<wounds type="number">4</wounds>
+		</hp>
+		<ideals type="string">Community. We have to take care of each other, because no one else is going to do it. (Lawful)</ideals>
+		<initiative>
+			<misc type="number">0</misc>
+			<temporary type="number">0</temporary>
+			<total type="number">3</total>
+		</initiative>
+		<inspiration type="number">0</inspiration>
+		<inventorylist>
+			<id-00001>
+				<carried type="number">1</carried>
+				<count type="number">1</count>
+				<name type="string">A tooth from a warg</name>
+				<weight type="number">0</weight>
+			</id-00001>
+			<id-00002>
+				<carried type="number">1</carried>
+				<count type="number">1</count>
+				<name type="string">Small Knife</name>
+				<weight type="number">0</weight>
+			</id-00002>
+			<id-00003>
+				<carried type="number">1</carried>
+				<count type="number">1</count>
+				<name type="string">A map of the city I grew up in</name>
+				<weight type="number">0</weight>
+			</id-00003>
+			<id-00004>
+				<carried type="number">1</carried>
+				<count type="number">1</count>
+				<name type="string">Pet Mouse: Mother</name>
+				<weight type="number">0</weight>
+			</id-00004>
+			<id-00005>
+				<carried type="number">1</carried>
+				<count type="number">1</count>
+				<name type="string">Common Clothes</name>
+				<weight type="number">0</weight>
+			</id-00005>
+			<id-00006>
+				<carried type="number">1</carried>
+				<count type="number">1</count>
+				<name type="string">Belt Pouch</name>
+				<weight type="number">0</weight>
+			</id-00006>
+			<id-00007>
+				<carried type="number">2</carried>
+				<cost type="string">10 gp</cost>
+				<count type="number">1</count>
+				<damage type="string">1d6 piercing</damage>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Shortsword</name>
+				<properties type="string">Finesse, light</properties>
+				<subtype type="string">Martial Weapons</subtype>
+				<type type="string">Weapon</type>
+				<weight type="number">2</weight>
+			</id-00007>
+			<id-00008>
+				<carried type="number">2</carried>
+				<cost type="string">5 cp</cost>
+				<count type="number">10</count>
+				<damage type="string">1d4 piercing</damage>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">0</locked>
+				<name type="string">Dart</name>
+				<properties type="string">Finesse, thrown (range 20/60)</properties>
+				<subtype type="string">Simple Ranged Weapons</subtype>
+				<type type="string">Weapon</type>
+				<weight type="number">0.25</weight>
+			</id-00008>
+			<id-00009>
+				<carried type="number">1</carried>
+				<cost type="string">50 gp</cost>
+				<count type="number">0</count>
+				<description type="formattedtext">
+					<p>A character who drinks the magical red fluid in this vial regains 2d4 + 2 hit points. Drinking or administering a potion takes an action.</p>
+				</description>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Potion of Healing</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">0.5</weight>
+			</id-00009>
+			<id-00010>
+				<carried type="number">1</carried>
+				<count type="number">2</count>
+				<weight type="number">0</weight>
+			</id-00010>
+			<id-00011>
+				<carried type="number">1</carried>
+				<cost type="string">1 gp</cost>
+				<count type="number">1</count>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Bedroll</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">7</weight>
+			</id-00011>
+			<id-00012>
+				<carried type="number">1</carried>
+				<cost type="string">5 sp</cost>
+				<count type="number">17</count>
+				<description type="formattedtext">
+					<p>Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.</p>
+				</description>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Rations (1 Day)</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">2</weight>
+			</id-00012>
+			<id-00013>
+				<carried type="number">1</carried>
+				<cost type="string">1 cp</cost>
+				<count type="number">10</count>
+				<description type="formattedtext">
+					<p>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</p>
+				</description>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Torch</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">1</weight>
+			</id-00013>
+			<id-00014>
+				<carried type="number">1</carried>
+				<cost type="string">5 sp</cost>
+				<count type="number">1</count>
+				<description type="formattedtext">
+					<p>This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch-or anything else with abundant, exposed fuel-takes an action. Lighting any other fire takes 1 minute.</p>
+				</description>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Tinderbox</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">1</weight>
+			</id-00014>
+			<id-00015>
+				<carried type="number">1</carried>
+				<cost type="string">2 sp</cost>
+				<count type="number">1</count>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Waterskin</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">5</weight>
+			</id-00015>
+			<id-00016>
+				<carried type="number">1</carried>
+				<cost type="string">2 sp</cost>
+				<count type="number">1</count>
+				<description type="formattedtext">
+					<p>This tin box contains a cup and simple cutlery. The box clamps together, and one side can be used as a cooking pan and the other as a plate or shallow bowl.</p>
+				</description>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Mess Kit</name>
+				<subtype type="string">Equipment Kits</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">1</weight>
+			</id-00016>
+			<id-00017>
+				<carried type="number">1</carried>
+				<cost type="string">1 gp</cost>
+				<count type="number">1</count>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Rope, Hempen (50 Feet)</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">10</weight>
+			</id-00017>
+			<id-00018>
+				<carried type="number">1</carried>
+				<cost type="string">2 gp</cost>
+				<count type="number">1</count>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Backpack (Empty)</name>
+				<subtype type="string">Standard</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">5</weight>
+			</id-00018>
+			<id-00019>
+				<carried type="number">1</carried>
+				<cost type="string">25 gp</cost>
+				<count type="number">1</count>
+				<description type="formattedtext">
+					<p>A climber's kit includes special pitons, boot tips, gloves, and a harness. You can use the climber's kit as an action to anchor yourself; when you do, you can't fall more than 25 feet from the point where you anchored yourself, and you can't climb more than 25 feet away from that point without undoing the anchor.</p>
+				</description>
+				<isidentified type="number">1</isidentified>
+				<locked type="number">1</locked>
+				<name type="string">Climber's Kit</name>
+				<subtype type="string">Equipment Kits</subtype>
+				<type type="string">Adventuring Gear</type>
+				<weight type="number">12</weight>
+			</id-00019>
+		</inventorylist>
+		<languagelist>
+			<id-00001>
+				<name type="string">Elvish</name>
+			</id-00001>
+			<id-00002>
+				<name type="string">Common</name>
+			</id-00002>
+		</languagelist>
+		<level type="number">4</level>
+		<name type="string">Tira Addar</name>
+		<notes type="string">I was born in prison. My mother died helping me escape when I was 7. I took a tooth from the mor40tally wounded warg that killed my mother.\nI have 3 older siblings I know nothing about.\nI raised myself on the streets.\nOthers saw me as different or strange, and so I had few companions. I spent most of my childhood alone, with no close friends.\nI went adventuring at 15, but fell victim to poison. A monk from a nearby hermitage found me in the wilderness, and took me in.\nMy monastery is high in the branches of an immense tree in the Feywild. The icon of my order is the Hydra.\nThere he trained me in the art, and I now devote myself to proving that I was worth being saved by my master.\nMy master was cold and distant. I suspect that we may be related.</notes>
+		<perception type="number">15</perception>
+		<perceptionmodifier type="number">0</perceptionmodifier>
+		<personalitytraits type="string">I hide scraps of food and trinkets away in my pockets.</personalitytraits>
+		<powermeta>
+			<pactmagicslots1>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots1>
+			<pactmagicslots2>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots2>
+			<pactmagicslots3>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots3>
+			<pactmagicslots4>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots4>
+			<pactmagicslots5>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots5>
+			<pactmagicslots6>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots6>
+			<pactmagicslots7>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots7>
+			<pactmagicslots8>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots8>
+			<pactmagicslots9>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</pactmagicslots9>
+			<spellslots1>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots1>
+			<spellslots2>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots2>
+			<spellslots3>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots3>
+			<spellslots4>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots4>
+			<spellslots5>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots5>
+			<spellslots6>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots6>
+			<spellslots7>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots7>
+			<spellslots8>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots8>
+			<spellslots9>
+				<max type="number">0</max>
+				<used type="number">0</used>
+			</spellslots9>
+		</powermeta>
+		<powermode type="string">standard</powermode>
+		<powers>
+		</powers>
+		<profbonus type="number">2</profbonus>
+		<proficiencylist>
+			<id-00001>
+				<name type="string">Weapon: Simple weapons, shortswords</name>
+			</id-00001>
+			<id-00002>
+				<name type="string">Tool: Cook's utensils</name>
+			</id-00002>
+			<id-00003>
+				<name type="string">Tool: Disguise kit, thieves' tools</name>
+			</id-00003>
+			<id-00004>
+				<name type="string">Armor: Light armor</name>
+			</id-00004>
+			<id-00005>
+				<name type="string">Tool: Thieves' tools</name>
+			</id-00005>
+		</proficiencylist>
+		<race type="string">Human</race>
+		<racelink type="windowreference">
+			<class>reference_race</class>
+			<recordname>reference.racedata.human@DD PHB Deluxe</recordname>
+		</racelink>
+		<senses type="string">Tira Addar</senses>
+		<size type="string">Medium</size>
+		<skilllist>
+			<id-00001>
+				<misc type="number">0</misc>
+				<name type="string">Perception</name>
+				<prof type="number">1</prof>
+				<stat type="string">wisdom</stat>
+				<total type="number">5</total>
+			</id-00001>
+			<id-00002>
+				<misc type="number">0</misc>
+				<name type="string">Arcana</name>
+				<prof type="number">0</prof>
+				<stat type="string">intelligence</stat>
+				<total type="number">-1</total>
+			</id-00002>
+			<id-00003>
+				<misc type="number">0</misc>
+				<name type="string">Persuasion</name>
+				<prof type="number">1</prof>
+				<stat type="string">charisma</stat>
+				<total type="number">2</total>
+			</id-00003>
+			<id-00004>
+				<misc type="number">0</misc>
+				<name type="string">Nature</name>
+				<prof type="number">0</prof>
+				<stat type="string">intelligence</stat>
+				<total type="number">-1</total>
+			</id-00004>
+			<id-00005>
+				<misc type="number">0</misc>
+				<name type="string">Medicine</name>
+				<prof type="number">0</prof>
+				<stat type="string">wisdom</stat>
+				<total type="number">3</total>
+			</id-00005>
+			<id-00006>
+				<misc type="number">0</misc>
+				<name type="string">Survival</name>
+				<prof type="number">0</prof>
+				<stat type="string">wisdom</stat>
+				<total type="number">3</total>
+			</id-00006>
+			<id-00007>
+				<misc type="number">0</misc>
+				<name type="string">Performance</name>
+				<prof type="number">0</prof>
+				<stat type="string">charisma</stat>
+				<total type="number">0</total>
+			</id-00007>
+			<id-00008>
+				<misc type="number">0</misc>
+				<name type="string">Acrobatics</name>
+				<prof type="number">2</prof>
+				<stat type="string">dexterity</stat>
+				<total type="number">7</total>
+			</id-00008>
+			<id-00009>
+				<misc type="number">0</misc>
+				<name type="string">Religion</name>
+				<prof type="number">0</prof>
+				<stat type="string">intelligence</stat>
+				<total type="number">-1</total>
+			</id-00009>
+			<id-00010>
+				<misc type="number">0</misc>
+				<name type="string">Athletics</name>
+				<prof type="number">0</prof>
+				<stat type="string">strength</stat>
+				<total type="number">-1</total>
+			</id-00010>
+			<id-00011>
+				<misc type="number">0</misc>
+				<name type="string">Sleight of Hand</name>
+				<prof type="number">1</prof>
+				<stat type="string">dexterity</stat>
+				<total type="number">5</total>
+			</id-00011>
+			<id-00012>
+				<misc type="number">0</misc>
+				<name type="string">Insight</name>
+				<prof type="number">1</prof>
+				<stat type="string">wisdom</stat>
+				<total type="number">5</total>
+			</id-00012>
+			<id-00013>
+				<misc type="number">0</misc>
+				<name type="string">Intimidation</name>
+				<prof type="number">0</prof>
+				<stat type="string">charisma</stat>
+				<total type="number">0</total>
+			</id-00013>
+			<id-00014>
+				<misc type="number">0</misc>
+				<name type="string">Deception</name>
+				<prof type="number">0</prof>
+				<stat type="string">charisma</stat>
+				<total type="number">0</total>
+			</id-00014>
+			<id-00015>
+				<misc type="number">0</misc>
+				<name type="string">Investigation</name>
+				<prof type="number">0</prof>
+				<stat type="string">intelligence</stat>
+				<total type="number">-1</total>
+			</id-00015>
+			<id-00016>
+				<misc type="number">0</misc>
+				<name type="string">Stealth</name>
+				<prof type="number">2</prof>
+				<stat type="string">dexterity</stat>
+				<total type="number">7</total>
+			</id-00016>
+			<id-00017>
+				<misc type="number">0</misc>
+				<name type="string">History</name>
+				<prof type="number">0</prof>
+				<stat type="string">intelligence</stat>
+				<total type="number">-1</total>
+			</id-00017>
+			<id-00018>
+				<misc type="number">0</misc>
+				<name type="string">Animal Handling</name>
+				<prof type="number">0</prof>
+				<stat type="string">wisdom</stat>
+				<total type="number">3</total>
+			</id-00018>
+		</skilllist>
+		<speed>
+			<armor type="number">0</armor>
+			<base type="number">30</base>
+			<misc type="number">0</misc>
+			<special type="string">Unarmored Movement +10</special>
+			<temporary type="number">0</temporary>
+			<total type="number">30</total>
+		</speed>
+		<temp>
+		</temp>
+		<token type="token">portrait_id-00004_token</token>
+		<traitlist>
+		</traitlist>
+		<weaponlist>
+			<id-00001>
+				<attackstat type="string">dexterity</attackstat>
+				<carried type="number">1</carried>
+				<damagelist>
+					<id-00001>
+						<dice type="dice">d4</dice>
+						<stat type="string">dexterity</stat>
+						<statmult type="number">1</statmult>
+					</id-00001>
+				</damagelist>
+				<maxammo type="number">0</maxammo>
+				<name type="string">Unarmed</name>
+				<prof type="number">1</prof>
+				<shortcut type="windowreference">
+					<class></class>
+					<recordname></recordname>
+				</shortcut>
+				<type type="number">0</type>
+			</id-00001>
+			<id-00002>
+				<attackstat type="string">dexterity</attackstat>
+				<carried type="number">2</carried>
+				<damagelist>
+					<id-00001>
+						<dice type="dice">d6</dice>
+						<stat type="string">dexterity</stat>
+						<type type="string">piercing</type>
+					</id-00001>
+				</damagelist>
+				<isidentified type="number">1</isidentified>
+				<maxammo type="number">0</maxammo>
+				<name type="string">Shortsword</name>
+				<prof type="number">1</prof>
+				<properties type="string">Finesse, light</properties>
+				<shortcut type="windowreference">
+					<class>item</class>
+					<recordname>....inventorylist.id-00007</recordname>
+				</shortcut>
+				<type type="number">0</type>
+			</id-00002>
+			<id-00003>
+				<ammo type="number">5</ammo>
+				<attackstat type="string">dexterity</attackstat>
+				<carried type="number">2</carried>
+				<damagelist>
+					<id-00001>
+						<dice type="dice">d4</dice>
+						<stat type="string">dexterity</stat>
+						<statmult type="number">1</statmult>
+						<type type="string">piercing</type>
+					</id-00001>
+				</damagelist>
+				<isidentified type="number">1</isidentified>
+				<maxammo type="number">10</maxammo>
+				<name type="string">Dart</name>
+				<prof type="number">1</prof>
+				<properties type="string">Finesse, thrown (range 20/60)</properties>
+				<shortcut type="windowreference">
+					<class>item</class>
+					<recordname>....inventorylist.id-00008</recordname>
+				</shortcut>
+				<type type="number">2</type>
+			</id-00003>
+			<id-00004>
+				<attackbonus type="number">0</attackbonus>
+				<carried type="number">1</carried>
+				<damagelist>
+					<id-00001>
+						<bonus type="number">0</bonus>
+						<dice type="dice">d6</dice>
+						<statmult type="number">1</statmult>
+					</id-00001>
+				</damagelist>
+				<maxammo type="number">0</maxammo>
+				<name type="string">Sneak Attack</name>
+				<prof type="number">1</prof>
+				<shortcut type="windowreference">
+					<class></class>
+					<recordname></recordname>
+				</shortcut>
+				<type type="number">0</type>
+			</id-00004>
+			<id-00005>
+				<ammo type="number">1</ammo>
+				<carried type="number">1</carried>
+				<maxammo type="number">2</maxammo>
+				<name type="string">Ki</name>
+				<prof type="number">1</prof>
+				<type type="number">1</type>
+			</id-00005>
+		</weaponlist>
+		<weight type="string">100</weight>
+	</character>
+</root>

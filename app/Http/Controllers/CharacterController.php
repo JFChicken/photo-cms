@@ -8,8 +8,11 @@ use App\Services\CharacterProcess;
 class CharacterController extends Controller
 {
 
-    public function __construct()
+    protected $characterProcess;
+
+    public function __construct(CharacterProcess $characterProcess)
     {
+        $this->characterProcess = $characterProcess;
         $this->middleware('auth');
     }
 
@@ -21,6 +24,7 @@ class CharacterController extends Controller
     public function index()
     {
         //
+        return  view('character.index',['data'=>$this->characterProcess->getIndex()]);
     }
 
     /**
@@ -31,6 +35,7 @@ class CharacterController extends Controller
     public function create()
     {
         //
+        return  view('character.create',['data'=>collect()]);
     }
 
     /**
@@ -81,7 +86,7 @@ class CharacterController extends Controller
         $newObject['basic'] = $basic;
         $newObject['stat'] = $stat;
         CharacterProcess::storeCharacter($newObject->toJson(),1);
-        return redirect('home');
+        return redirect('character.index');
     }
 
     /**
@@ -93,6 +98,7 @@ class CharacterController extends Controller
     public function show($id)
     {
         //
+        return view('character.show',['data'=>$this->characterProcess->getShow($id)]);
     }
 
     /**
@@ -104,6 +110,7 @@ class CharacterController extends Controller
     public function edit($id)
     {
         //
+        return view('character.edit',['data'=>$this->characterProcess->getShow($id)]);
     }
 
     /**
@@ -116,6 +123,7 @@ class CharacterController extends Controller
     public function update(Request $request, $id)
     {
         //
+        dd($request,$id);
     }
 
     /**
@@ -127,5 +135,6 @@ class CharacterController extends Controller
     public function destroy($id)
     {
         //
+        dd($id);
     }
 }

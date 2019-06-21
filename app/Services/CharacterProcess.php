@@ -7,7 +7,6 @@ use App\Models\CharacterSheet;
 
 class CharacterProcess
 {
-
     protected $characterBasics;
     protected $characterSheet;
 
@@ -15,6 +14,15 @@ class CharacterProcess
     {
         $this->characterBasics = $characterBasics;
         $this->characterSheet = $characterSheet;
+    }
+
+    public function getIndex(){
+
+        return CharacterSheet::all();
+    }
+    public function getShow($id){
+
+        return CharacterSheet::find($id);
     }
 
     static public function storeCharacter($character,$userId){
