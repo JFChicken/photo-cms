@@ -25,6 +25,28 @@ class FileVault
     }
 
     /**
+     * Get an XML File
+     */
+    public static function getXMLFile()
+    {
+
+        // collectet the sheet
+        $XML = Storage::disk('local')->get('public/characters/Nadarr.xml');
+        // convert to update in xml
+        $xmlFile =  simplexml_load_string($XML);
+        // make an update to it
+        $xmlFile->character->exp = '100';
+        // Save to update
+        $xmlFile->asXml('storage/characters/updated.xml');
+        $characterKeys = collect();
+        foreach ($xmlFile->character->children() as $key => $item) {
+            $characterKeys[$key]= $item;
+        }
+        dd($characterKeys);
+        dd($xmlFile->children(), $xmlFile->character->children());
+
+    }
+    /**
      *  Pulls all of the files inside the photos public dir
      */
     private function getPhotos()
@@ -55,7 +77,7 @@ class FileVault
                         'thumbnailCreated' => null
                     ]
                 );
-                
+
                 if (is_null($fileVaultObj->thumbnailCreated)) {
                     $newFiles++;
                     $fileVaultObj->thumbnailCreated = false;
@@ -64,7 +86,7 @@ class FileVault
                 $fileVaultObj->save();
             }
         }
-        
+
         return $newFiles;
     }
 
@@ -106,47 +128,51 @@ class FileVault
      *  Depending on the boolen $reelativePath we will either have file sistem absolut path (needed for Python scrip)
      *  Or one used for displaying the images on the site
      */
-    private function  createFileUrls($record, $relativePath = false){
+    private function  createFileUrls($record, $relativePath = false)
+    {
 
         // @TODO: make this if statment better and remove the hard coded strings
-        if($relativePath){
+        if ($relativePath) {
             $url = '/storage/photos/';
             $thumbnailUrl = '/storage/thumbnails/';
+        } else {
+            $url = $this->storagePath();
+            $thumbnailUrl = $this->thumbnailPath();
 
-        }else{
-        $url = $this->storagePath();
-        $thumbnailUrl = $this->thumbnailPath();
-        
-        // Create the thumbnail drive before sending this since the python script will not handle it.
-        $this->createThumbnailDir($thumbnailUrl.$record->year.'/'.$record->folder);
+            // Create the thumbnail drive before sending this since the python script will not handle it.
+            $this->createThumbnailDir($thumbnailUrl . $record->year . '/' . $record->folder);
         }
         return [
-            'id'=>$record->fileVaultId,
-            'image'=>$url.$record->year.'/'.$record->folder.'/'.$record->fileName.'.jpg',
-            'thumbnail'=>$thumbnailUrl.$record->year.'/'.$record->folder.'/'.$record->fileName.'.jpg'
+            'id' => $record->fileVaultId,
+            'image' => $url . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg',
+            'thumbnail' => $thumbnailUrl . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg'
         ];
     }
 
-    private function processDbRecords($records){
-        
-        $files=[];
-        foreach ($records as $record){
-            $files[$record->fileVaultId] = $this->createFileUrls($record,false);
+    private function processDbRecords($records)
+    {
+
+        $files = [];
+        foreach ($records as $record) {
+            $files[$record->fileVaultId] = $this->createFileUrls($record, false);
         }
-        
+
         return $files;
-    } 
-
-    private function storagePath(){
-        return storage_path() .'/app/public/photos/';
     }
 
-    private function thumbnailPath(){
-        return storage_path() .'/app/public/thumbnails/';
+    private function storagePath()
+    {
+        return storage_path() . '/app/public/photos/';
     }
 
-    private function createThumbnailDir($path){
-        if(!File::exists($path)) {
+    private function thumbnailPath()
+    {
+        return storage_path() . '/app/public/thumbnails/';
+    }
+
+    private function createThumbnailDir($path)
+    {
+        if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true);
         }
     }
@@ -160,21 +186,22 @@ class FileVault
 
         $files = $this->getPhotos();
         return $this->processFiles($files);
-        
     }
 
     /**
      *  This is the open point to create new thumbnails it will return the count of files processed
      */
-    public function updatePhotoRecords($files){
-        
-         return $this->updateDatabase($files);
+    public function updatePhotoRecords($files)
+    {
+
+        return $this->updateDatabase($files);
     }
 
     /**
      *  This will set the DB record column Thumbnail created as true (created)
      */
-    public function updatePhotoThumbnail($recordId){
+    public function updatePhotoThumbnail($recordId)
+    {
         return $this->fileVaultModel::find($recordId)->update(['thumbnailCreated' => true]);
     }
 
@@ -182,9 +209,10 @@ class FileVault
      *  This will look at the DB and get all of the records that do not have a thumbnail(default)
      *  and return then with Urls for the image and the proposed url file to be stored
      */
-    public function getPhotoRecords($thumbnailCreated = false){
-        
-        $files = $this->fileVaultModel::where(['thumbnailCreated'=>$thumbnailCreated])->get();
+    public function getPhotoRecords($thumbnailCreated = false)
+    {
+
+        $files = $this->fileVaultModel::where(['thumbnailCreated' => $thumbnailCreated])->get();
 
         return $this->processDbRecords($files);
     }
@@ -192,26 +220,25 @@ class FileVault
     /**
      *  Looks at the DB records that have thumbnails and creates reletive urls for the view to display
      */
-    public function getViewUrls($filter){
+    public function getViewUrls($filter)
+    {
 
-        $records = $this->fileVaultModel::where(['thumbnailCreated'=>true])->get();
-        $files=[];
+        $records = $this->fileVaultModel::where(['thumbnailCreated' => true])->get();
+        $files = [];
         // Newest first
-        foreach ($records->sortByDesc($filter) as $record){
-            $files[$record->fileVaultId] = $this->createFileUrls($record,true);
+        foreach ($records->sortByDesc($filter) as $record) {
+            $files[$record->fileVaultId] = $this->createFileUrls($record, true);
         }
-        
-        return $files;
 
+        return $files;
     }
     /**
      *  DEVELOPER command; to clear out the DB so it can be reinitilized 
      * 
      */
-    public function truncateRecords(){
+    public function truncateRecords()
+    {
 
         return $this->fileVaultModel::truncate();
-
     }
-
 }

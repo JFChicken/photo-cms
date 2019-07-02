@@ -21,4 +21,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/imagemanager', 'HomeController@index')->name('home');
+
 Route::resource('/character', 'CharacterController');

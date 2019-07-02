@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\FileVault;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Work done here will need to move to the proper places JC ;)
-        return view('home');
+        return view('photo', ['data'=>collect()]);
+    }
+    
+    public function imageManager()
+    {
+        return view('photo', ['data'=>collect()]);
     }
 }
