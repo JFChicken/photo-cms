@@ -83,7 +83,6 @@ class FileVault
             // Take the string and remove the root
             $file = str_replace($rootDir . '/', '', $file);
 
-
             if (strpos($file, '.JPG') !== false || strpos($file, '.jpg') !== false) {
                 // Split the remander to get the 3 need values, year, event and file name
                 $split = explode('/', $file);
@@ -91,12 +90,11 @@ class FileVault
                     // If we dont have one that is 3 values we need to decide how we want to handle it
                     // Look at the first value and see if we can build a date from it if we cant then we have a folder item then a file item.
                     $carbon = Carbon::now();
-                    if (strtotime($split[0]) === false) { 
+                    if (strtotime($split[0]) === false) {
                         // Now just push in the date
-                        array_unshift($split,(string)$carbon->year);
+                        array_unshift($split, (string) $carbon->year);
                     }
                 }
-                var_dump($split, $file);
                 $year = (int) $split[0];
                 $event = $split[1];
                 $fileName = preg_replace('/.[^.]*$/', '', $split[2]);
