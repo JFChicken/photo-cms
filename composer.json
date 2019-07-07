@@ -50,6 +50,15 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "post-install-cmd":[
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan storage:link",
+            "mkdir storage/app/public/photos"
+        ],
+        "post-update-cmd":[
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan storage:link"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

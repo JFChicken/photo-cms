@@ -50,7 +50,7 @@ class FileVault
                         'fileName' => $file['fileName'],
                         'folder' => $file['folder'],
                         'year' => $file['year'],
-                        'sourceFile'=>$file['sourceFile'],
+                        'sourceFile' => $file['sourceFile'],
                     ],
                     [
                         // We set this Null to use as a counter for processed files
@@ -103,8 +103,13 @@ class FileVault
                     'year' => $year,
                     'folder' => $event,
                     'fileName' => $fileName,
-                    'sourceFile'=>$file,
+                    'sourceFile' => $file,
                 ];
+            }elseif (strpos($file, '.TIF') !== false || strpos($file, '.tif') !== false) {
+                var_dump($file);
+            } else {
+                // Show what files are not being processed
+               var_dump('process');
             }
         }
         return $processedFiles;
