@@ -12,7 +12,7 @@ class thumbnailImage extends Command
      *
      * @var string
      */
-    protected $signature = 'thumbnail:processImages';
+    protected $signature = 'img:thumbs';
 
     /**
      * The console command description.

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\FileVault as FileVaultModel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 /**
  *  This class will have and has functions relating to access to local, s3, ect
@@ -49,13 +50,14 @@ class FileVault
                         'fileName' => $file['fileName'],
                         'folder' => $file['folder'],
                         'year' => $file['year'],
+                        'sourceFile'=>$file['sourceFile'],
                     ],
                     [
                         // We set this Null to use as a counter for processed files
                         'thumbnailCreated' => null
                     ]
                 );
-                
+
                 if (is_null($fileVaultObj->thumbnailCreated)) {
                     $newFiles++;
                     $fileVaultObj->thumbnailCreated = false;
@@ -64,7 +66,7 @@ class FileVault
                 $fileVaultObj->save();
             }
         }
-        
+
         return $newFiles;
     }
 
@@ -82,19 +84,26 @@ class FileVault
             // Take the string and remove the root
             $file = str_replace($rootDir . '/', '', $file);
 
-
-            if (strpos($file, '.jpg') !== false) {
+            if (strpos($file, '.JPG') !== false || strpos($file, '.jpg') !== false) {
                 // Split the remander to get the 3 need values, year, event and file name
-
                 $split = explode('/', $file);
-
-                $year = (int)$split[0];
+                if (count($split) < 3) {
+                    // If we dont have one that is 3 values we need to decide how we want to handle it
+                    // Look at the first value and see if we can build a date from it if we cant then we have a folder item then a file item.
+                    $carbon = Carbon::now();
+                    if (strtotime($split[0]) === false) {
+                        // Now just push in the date
+                        array_unshift($split, (string) $carbon->year);
+                    }
+                }
+                $year = (int) $split[0];
                 $event = $split[1];
                 $fileName = preg_replace('/.[^.]*$/', '', $split[2]);
                 $processedFiles[] = [
                     'year' => $year,
                     'folder' => $event,
                     'fileName' => $fileName,
+                    'sourceFile'=>$file,
                 ];
             }
         }
@@ -106,47 +115,51 @@ class FileVault
      *  Depending on the boolen $reelativePath we will either have file sistem absolut path (needed for Python scrip)
      *  Or one used for displaying the images on the site
      */
-    private function  createFileUrls($record, $relativePath = false){
+    private function  createFileUrls($record, $relativePath = false)
+    {
 
         // @TODO: make this if statment better and remove the hard coded strings
-        if($relativePath){
+        if ($relativePath) {
             $url = '/storage/photos/';
             $thumbnailUrl = '/storage/thumbnails/';
+        } else {
+            $url = $this->storagePath();
+            $thumbnailUrl = $this->thumbnailPath();
 
-        }else{
-        $url = $this->storagePath();
-        $thumbnailUrl = $this->thumbnailPath();
-        
-        // Create the thumbnail drive before sending this since the python script will not handle it.
-        $this->createThumbnailDir($thumbnailUrl.$record->year.'/'.$record->folder);
+            // Create the thumbnail drive before sending this since the python script will not handle it.
+            $this->createThumbnailDir($thumbnailUrl . $record->year . '/' . $record->folder);
         }
         return [
-            'id'=>$record->fileVaultId,
-            'image'=>$url.$record->year.'/'.$record->folder.'/'.$record->fileName.'.jpg',
-            'thumbnail'=>$thumbnailUrl.$record->year.'/'.$record->folder.'/'.$record->fileName.'.jpg'
+            'id' => $record->fileVaultId,
+            'image' => $url . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg',
+            'thumbnail' => $thumbnailUrl . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg'
         ];
     }
 
-    private function processDbRecords($records){
-        
-        $files=[];
-        foreach ($records as $record){
-            $files[$record->fileVaultId] = $this->createFileUrls($record,false);
+    private function processDbRecords($records)
+    {
+
+        $files = [];
+        foreach ($records as $record) {
+            $files[$record->fileVaultId] = $this->createFileUrls($record, false);
         }
-        
+
         return $files;
-    } 
-
-    private function storagePath(){
-        return storage_path() .'/app/public/photos/';
     }
 
-    private function thumbnailPath(){
-        return storage_path() .'/app/public/thumbnails/';
+    private function storagePath()
+    {
+        return storage_path() . '/app/public/photos/';
     }
 
-    private function createThumbnailDir($path){
-        if(!File::exists($path)) {
+    private function thumbnailPath()
+    {
+        return storage_path() . '/app/public/thumbnails/';
+    }
+
+    private function createThumbnailDir($path)
+    {
+        if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true);
         }
     }
@@ -160,21 +173,22 @@ class FileVault
 
         $files = $this->getPhotos();
         return $this->processFiles($files);
-        
     }
 
     /**
      *  This is the open point to create new thumbnails it will return the count of files processed
      */
-    public function updatePhotoRecords($files){
-        
-         return $this->updateDatabase($files);
+    public function updatePhotoRecords($files)
+    {
+
+        return $this->updateDatabase($files);
     }
 
     /**
      *  This will set the DB record column Thumbnail created as true (created)
      */
-    public function updatePhotoThumbnail($recordId){
+    public function updatePhotoThumbnail($recordId)
+    {
         return $this->fileVaultModel::find($recordId)->update(['thumbnailCreated' => true]);
     }
 
@@ -182,9 +196,10 @@ class FileVault
      *  This will look at the DB and get all of the records that do not have a thumbnail(default)
      *  and return then with Urls for the image and the proposed url file to be stored
      */
-    public function getPhotoRecords($thumbnailCreated = false){
-        
-        $files = $this->fileVaultModel::where(['thumbnailCreated'=>$thumbnailCreated])->get();
+    public function getPhotoRecords($thumbnailCreated = false)
+    {
+
+        $files = $this->fileVaultModel::where(['thumbnailCreated' => $thumbnailCreated])->get();
 
         return $this->processDbRecords($files);
     }
@@ -192,26 +207,25 @@ class FileVault
     /**
      *  Looks at the DB records that have thumbnails and creates reletive urls for the view to display
      */
-    public function getViewUrls($filter){
+    public function getViewUrls($filter)
+    {
 
-        $records = $this->fileVaultModel::where(['thumbnailCreated'=>true])->get();
-        $files=[];
+        $records = $this->fileVaultModel::where(['thumbnailCreated' => true])->get();
+        $files = [];
         // Newest first
-        foreach ($records->sortByDesc($filter) as $record){
-            $files[$record->fileVaultId] = $this->createFileUrls($record,true);
+        foreach ($records->sortByDesc($filter) as $record) {
+            $files[$record->fileVaultId] = $this->createFileUrls($record, true);
         }
-        
-        return $files;
 
+        return $files;
     }
     /**
      *  DEVELOPER command; to clear out the DB so it can be reinitilized 
      * 
      */
-    public function truncateRecords(){
+    public function truncateRecords()
+    {
 
         return $this->fileVaultModel::truncate();
-
     }
-
 }
