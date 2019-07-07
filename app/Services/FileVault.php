@@ -50,6 +50,7 @@ class FileVault
                         'fileName' => $file['fileName'],
                         'folder' => $file['folder'],
                         'year' => $file['year'],
+                        'sourceFile'=>$file['sourceFile'],
                     ],
                     [
                         // We set this Null to use as a counter for processed files
@@ -102,6 +103,7 @@ class FileVault
                     'year' => $year,
                     'folder' => $event,
                     'fileName' => $fileName,
+                    'sourceFile'=>$file,
                 ];
             }
         }
