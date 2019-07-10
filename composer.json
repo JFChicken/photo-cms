@@ -53,6 +53,7 @@
         "post-install-cmd":[
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan storage:link",
+            "@php artisan key:generate --ansi",
             "mkdir storage/app/public/photos"
         ],
         "post-update-cmd":[

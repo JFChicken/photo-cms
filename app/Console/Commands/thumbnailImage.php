@@ -71,7 +71,6 @@ class thumbnailImage extends Command
             $result = shell_exec("python3 " . app_path() . '/Console/Scripts/imageProcess.py ' . escapeshellarg($string));
             // look at the result if we got a true we will mark it down else we will just skip
             
-            
             if (strpos($result, 'true') !== false) {
                 // Update the DB Record
                 $this->fileVault->updatePhotoThumbnail($fileId);

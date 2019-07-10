@@ -21,7 +21,6 @@ class DisplayPhotoController extends Controller
     public function index($filter = null)
     {
         $data = PhotoProcess::processRecords($filter);
-        
         return view('photo', ['data' => $data]);
     }
 

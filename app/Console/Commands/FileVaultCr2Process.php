@@ -47,32 +47,25 @@ class FileVaultCr2Process extends Command
         #$this->output->progressStart(5);
 
 
-
-        $inputDir = storage_path() . '/batchTest';
+        $year = date('Y');
+        $date = date('mdy');
+        $inputDir = storage_path() . '/app/public/cr2Images';
+        $jpgDir = storage_path() . '/app/public/photos/' . $year . '/import-' . $date;
 
         #$this->output->progressAdvance();
 
-        // This needs to be refactored but for now this will work with the script
-        // This will take a data set and convert them to paramaters for the python script to use
-        $data = array(
-            array(0, $inputDir),
-        );
-
-        $count = count($data);
-        $a = 1;
-        $string = "";
-
-        foreach ($data as $d) {
-            $string .= $d[0] . '--' . $d[1];
-
-            if ($a < $count) {
-                $string .= ",";
-            }
-            $a++;
-        }
-        $command = "exiftool -T -r -csv -n -filename -orientation {$inputDir} > {$inputDir}/output.csv";
-
+        echo "jpg\n";
+        // Now take the CR2 files and make fullsize images
+        $command = "exiftool  -b -PreviewImage -w {$jpgDir}/%f.jpg -ext dng -r {$inputDir}";
         $result = shell_exec($command);
+        echo $result;
+        
+        
+        echo "csv\n";
+        $command = "exiftool -T -r -csv -n -filename -orientation -gpslatitude -gpslongitude -dateTimeOriginal {$inputDir} > {$inputDir}/output.csv";
+        $result = shell_exec($command);
+        echo $result;
+
 
         if ($result === null) {
             // We need to load the CSV and add it to our cr2 processing table to be added to the gallery
@@ -80,31 +73,44 @@ class FileVaultCr2Process extends Command
 
             $header = null;
             $data = array();
-
+            echo "import CSV\n";
             if (($handle = fopen($csvFile, 'r')) !== false) {
                 while (($row = fgetcsv($handle, 1000, ',')) !== false) {
                     if (!$header) {
                         // Check that this will work for the model if it doesnt abort the loading of the file
                         // Set the flag
                         $header = true;
-                        $validCSV=['SourceFile','FileName','Orientation'];
-                        if($row!=$validCSV){
+                        $validCSV = ['SourceFile', 'FileName', 'Orientation', 'gpslatitude', 'gpslongitude', 'DateTimeOriginal'];
+                        if ($row != $validCSV) {
                             exit('bad CSV file');
                         }
-
                     } else {
                         $batchCrObj = BatchCr2::create([
-                            'SourceFile'=>$row[0],
-                            'FileName'=>$row[1],
-                            'Orientation'=>$row[2]
+                            'sourceFile' => $row[0],
+                            'fileName' => $row[1],
+                            'orientation' => $row[2],
+                            'gpsLatitude' => $row[3],
+                            'gpsLongitude' => $row[4],
+                            'dateTimeOriginal' => $row[5],
                         ]);
 
                         $batchCrObj->save();
                         // load the row to the model and save it
+
+                        // // update the JPG Tags from CR2 files
+                        // $source = $row[0];
+                        // $jpg = str_replace('CR2','jpg',$row[1]);
+                        // $final = $jpgDir.'/'.$jpg;
+                        // // Sync the meta for ontration       
+                        // $command = "exiftool -overwrite_original -tagsfromfile {$source} -orientation {$final}";
+                        // $result = shell_exec($command);
+                        // echo $result;
+
                     }
                 }
                 // Cleanup
                 fclose($handle);
+                unlink($csvFile);
             }
         }
 

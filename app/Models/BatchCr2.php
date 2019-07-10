@@ -11,8 +11,11 @@ class BatchCr2 extends Model
     protected $primaryKey = 'batchCrId';
     protected $table = 'batchCr';
     protected $fillable = [
-        'SourceFile',
-        'FileName',
-        'Orientation'
+        'sourceFile',
+        'fileName',
+        'orientation',
+        'gpsLatitude',
+        'gpsLongitude',
+        'dateTimeOriginal',
     ];
 }

@@ -15,9 +15,14 @@ class CreateBatchCr2Table extends Migration
     {
         Schema::create('batchCr', function (Blueprint $table) {
             $table->bigIncrements('batchCrId');
-            $table->string('SourceFile');
-            $table->string('FileName');
-            $table->integer('Orientation');
+            $table->string('sourceFile');
+            $table->string('fileName');
+            
+            $table->string('gpsLatitude');
+            $table->string('gpsLongitude');
+            $table->string('dateTimeOriginal');
+            
+            $table->integer('orientation');
             //TIME KEEPING
             $table->timestamps();
             $table->softDeletes();
