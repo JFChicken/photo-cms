@@ -41,11 +41,7 @@ class FileVaultCr2Process extends Command
     public function handle()
     {
         //
-
-
-
         #$this->output->progressStart(5);
-
 
         $year = date('Y');
         $date = date('mdy');
@@ -59,13 +55,6 @@ class FileVaultCr2Process extends Command
         $command = "exiftool  -b -PreviewImage -w {$jpgDir}/%f.jpg -ext dng -r {$inputDir}";
         $result = shell_exec($command);
         echo $result;
-        
-        
-        echo "csv\n";
-        $command = "exiftool -T -r -csv -n -filename -orientation -gpslatitude -gpslongitude -dateTimeOriginal {$inputDir} > {$inputDir}/output.csv";
-        $result = shell_exec($command);
-        echo $result;
-
 
         if ($result === null) {
             // We need to load the CSV and add it to our cr2 processing table to be added to the gallery
