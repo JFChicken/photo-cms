@@ -13,6 +13,7 @@ class FileVault extends Model
         'fileName',
         'folder',
         'year',
-        'thumbnailCreated'
+        'thumbnailCreated',
+        'sourceFile',
     ];
 }

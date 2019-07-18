@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\FileVault as FileVaultModel;
+use App\Models\FileVaultRaw as FileVaultRawModel;
+use App\Models\FileVaultDisplay as FileVaultDisplayModel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
@@ -50,6 +52,7 @@ class FileVault
                         'fileName' => $file['fileName'],
                         'folder' => $file['folder'],
                         'year' => $file['year'],
+                        'sourceFile' => $file['sourceFile'],
                     ],
                     [
                         // We set this Null to use as a counter for processed files
@@ -102,7 +105,13 @@ class FileVault
                     'year' => $year,
                     'folder' => $event,
                     'fileName' => $fileName,
+                    'sourceFile' => $file,
                 ];
+            } elseif (strpos($file, '.TIF') !== false || strpos($file, '.tif') !== false) {
+                var_dump($file);
+            } else {
+                // Show what files are not being processed
+                var_dump('process');
             }
         }
         return $processedFiles;
@@ -225,5 +234,126 @@ class FileVault
     {
 
         return $this->fileVaultModel::truncate();
+    }
+
+    /**
+     *  Takes an CSV file and imports the records to the FV Raw table
+     */
+    public function importCSVFile(string $csvFile)
+    {
+        $header = false;
+        // Take the CSV File and import it to the Table
+        if (($handle = fopen($csvFile, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+                if (!$header) {
+                    // Check that this will work for the model if it doesnt abort the loading of the file
+                    // Set the flag
+                    $header = true;
+                    $validCSV = ['SourceFile', 'FileName', 'Orientation', 'gpslatitude', 'gpslongitude', 'DateTimeOriginal'];
+                    if ($row != $validCSV) {
+                        exit('bad CSV file');
+                    }
+                } else {
+
+                    // Get the Extestion and the 
+                    $pathInfo = pathinfo($row[1]);
+                    $fileExtestion = $pathInfo['extension'];
+
+                    $fileName = $pathInfo['filename'];
+
+                    // look at the record and if we have an existing source file we will not add it again
+                    $fileVaultObj = FileVaultRawModel::firstOrNew(
+                        [
+                            'sourceFile' => $row[0],
+                        ],
+                        [
+                            // We set this Null to use as a counter for processed files
+                            'fileName' => $fileName,
+                            'fileExtestion' => $fileExtestion,
+                            'fileVaultDisplayId' => null,
+                            'gpsLatitude' => $row[3],
+                            'gpsLongitude' => $row[4],
+                            'dateTimeTaken' => $row[5],
+                            'orientation' => $row[2],
+                        ]
+                    );
+
+                    $fileVaultObj->save();
+                }
+            }
+            // Cleanup
+            fclose($handle);
+            unlink($csvFile);
+        }
+
+        return true;
+    }
+
+    public function updateRawTable($output)
+    { }
+
+    public function createImagesFromRawTable($output)
+    {
+        $unprocessedRecords = FileVaultRawModel::where('fileVaultDisplayId', null)->get();
+
+        $output->progressStart($unprocessedRecords->count());
+
+        foreach ($unprocessedRecords as $record) {
+            $output->progressAdvance();
+            // Each record we need to build an full zise image
+
+            $year = date('Y');
+            $date = date('mdy');
+
+            $inputFile = $record['sourceFile'];
+            $fileExtestion = $record['fileExtestion'];
+            $outputDir = storage_path() . '/app/public/photos/' . $year . '/import-' . $date;
+            // Check that the file doesnt exist if it does we need to remove it before rebuilding it.
+            $fileName = $record['fileName'].'.jpg';
+            if(file_exists("{$outputDir}/{$fileName}")){
+                unlink("{$outputDir}/{$fileName}");
+            }
+            
+            // Now take the CR2 files and make fullsize images
+            $command = "exiftool  -b -PreviewImage -w {$outputDir}/%f.jpg -ext {$fileExtestion} {$inputFile}";
+            $result = shell_exec($command);
+            
+
+            $final = $outputDir . '/' . $record['fileName'] . '.jpg';
+            $orientation = (int) $record['orientation'];
+
+            // Sync the meta for ontration
+
+            $command = "exiftool -overwrite_original -IFD0:Orientation='{$orientation}' -n -IFD1:Orientation='{$orientation}' -n {$final}";
+            // $command = "exiftool -overwrite_original -tagsfromfile {$inputFile} -orientation {$final}";
+            $result = shell_exec($command);
+
+            // Orientate it
+            // Build a thumbnail(will handle latter)
+
+            // Update the Raw Table with the image ID
+
+            $pathInfo = pathinfo($final);
+
+            $fileVaultObj = FileVaultDisplayModel::create([
+
+                'sourceFile' => $final,
+                'fileName' => $pathInfo['filename'],
+                'fileExtestion' => $pathInfo['extension'],
+                'thumbnailCreated' => false,
+
+            ]);
+
+            // Update the Raw File with the built display image
+            $record['fileVaultDisplayId'] = $fileVaultObj['fileVaultDisplayId'];
+
+
+            $fileVaultObj->save();
+            $record->save();
+           
+            // Take the JPG file url and put it in the dir along with some other data
+            $final;
+        }
+        $output->progressFinish();
     }
 }
