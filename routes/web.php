@@ -25,5 +25,3 @@ Route::get('/filter/{filter?}', 'DisplayPhotoController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('/character', 'CharacterController');
