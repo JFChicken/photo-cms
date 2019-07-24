@@ -11,7 +11,8 @@
                     <div id="gallery">
 
                         @foreach ($data as $item)
-                        <a href="{{asset($item['image'])}} " data-lightbox="gallery1" data-title="">
+                    
+                        <a href="{{asset($item['image'])}} " data-lightbox="gallery1" data-title="Manage <a href='{{$item['manageUrl']}}'>Photo</a>.">
                             <!-- <i class="fas fa-camera-retro"></i> -->
                             <img src="{{asset($item['thumbnail'])}}">
                         </a>

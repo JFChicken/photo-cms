@@ -22,6 +22,8 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 Route::get('/', 'DisplayPhotoController@index');
 Route::get('/filter/{filter?}', 'DisplayPhotoController@index');
 
+Route::get('/manage/image/{imageId?}', 'DisplayPhotoController@show');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

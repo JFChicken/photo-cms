@@ -17,6 +17,14 @@ class PhotoProcess
         $this->fileVaultModel = $fileVault;
     }
 
+    static public function managePhoto($photoId){
+
+        
+        $data = ['id'=>$photoId];
+
+        return $data;
+
+    }
     /**
      *  Pulls photo files for the view
      */

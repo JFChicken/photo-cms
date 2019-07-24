@@ -139,7 +139,8 @@ class FileVault
         return [
             'id' => $record->fileVaultId,
             'image' => $url . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg',
-            'thumbnail' => $thumbnailUrl . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg'
+            'thumbnail' => $thumbnailUrl . $record->year . '/' . $record->folder . '/' . $record->fileName . '.jpg',
+            'manageUrl' => 'manage/image/' . $record->fileVaultId,
         ];
     }
 
@@ -249,8 +250,9 @@ class FileVault
                     // Check that this will work for the model if it doesnt abort the loading of the file
                     // Set the flag
                     $header = true;
-                    $validCSV = ['SourceFile', 'FileName', 'Orientation', 'gpslatitude', 'gpslongitude', 'DateTimeOriginal'];
+                    $validCSV = ['SourceFile', 'FileName', 'Orientation', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'];
                     if ($row != $validCSV) {
+                        // We likely have a miss mach of case sentitivity
                         exit('bad CSV file');
                     }
                 } else {
@@ -292,32 +294,51 @@ class FileVault
     public function updateRawTable($output)
     { }
 
+    /**
+     *  Takes ALL of the records in the FV:RAW table and create Full size Previews 
+     *  Will also sync the Meta data from the table to the new previews
+     *  - the only meta info is the orientation info.
+     * 
+     */
     public function createImagesFromRawTable($output)
     {
+        // This will need to have a optional filter to just do new files or do a full refresh baised off of the image id  value
         $unprocessedRecords = FileVaultRawModel::where('fileVaultDisplayId', null)->get();
 
+        // Disp output for the command
         $output->progressStart($unprocessedRecords->count());
 
         foreach ($unprocessedRecords as $record) {
+            // Update output
             $output->progressAdvance();
-            // Each record we need to build an full zise image
 
+            #Each record we need to build an full zise image
+
+            // Get the two folder options used for older image caching
             $year = date('Y');
             $date = date('mdy');
 
             $inputFile = $record['sourceFile'];
             $fileExtestion = $record['fileExtestion'];
             $outputDir = storage_path() . '/app/public/photos/' . $year . '/import-' . $date;
-            // Check that the file doesnt exist if it does we need to remove it before rebuilding it.
-            $fileName = $record['fileName'].'.jpg';
-            if(file_exists("{$outputDir}/{$fileName}")){
+            $fileName = $record['fileName'] . '.jpg';
+
+            // Check that the preview doesnt exist if it does we need to remove it before rebuilding it.
+            // We do not keep old previews ever; changes to the RAW files take precidentatne
+            if (file_exists("{$outputDir}/{$fileName}")) {
                 unlink("{$outputDir}/{$fileName}");
             }
-            
-            // Now take the CR2 files and make fullsize images
+
+            // Now take the RAW files and make fullsize images
             $command = "exiftool  -b -PreviewImage -w {$outputDir}/%f.jpg -ext {$fileExtestion} {$inputFile}";
             $result = shell_exec($command);
-            
+
+            $command = "exiftool -s -Orientation {$inputFile}";
+            $result = shell_exec($command);
+
+            echo "\n {$command} \n\t".$result.PHP_EOL;
+
+            #SYNC meta data to the new preview image file.
 
             $final = $outputDir . '/' . $record['fileName'] . '.jpg';
             $orientation = (int) $record['orientation'];
@@ -327,6 +348,14 @@ class FileVault
             $command = "exiftool -overwrite_original -IFD0:Orientation='{$orientation}' -n -IFD1:Orientation='{$orientation}' -n {$final}";
             // $command = "exiftool -overwrite_original -tagsfromfile {$inputFile} -orientation {$final}";
             $result = shell_exec($command);
+            //echo "{{$command}} \n\t".$result.PHP_EOL;
+            
+            
+            $command = "exiftool -s -Orientation {$final}";
+            $result = shell_exec($command);
+
+            echo "\n {$command} \n\t".$result.PHP_EOL;
+
 
             // Orientate it
             // Build a thumbnail(will handle latter)
@@ -350,7 +379,7 @@ class FileVault
 
             $fileVaultObj->save();
             $record->save();
-           
+
             // Take the JPG file url and put it in the dir along with some other data
             $final;
         }
