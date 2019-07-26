@@ -23,7 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Work done here will need to move to the proper places JC ;)
         return view('home');
+    }
+
+    public function react(){
+
+        return view('react');
     }
 }
