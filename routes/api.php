@@ -17,9 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('photoList', function (Request $request){
-    dd($request);
-});
+// Route::post('jwt/login', 'AuthenticateController@authenticate');
+Route::post('/foo', 'AuthenticateController@authenticate');
+
 // Route::middleware('auth:api')->get('/photoList', function (Request $request) {
 //     dd('here');
 // });

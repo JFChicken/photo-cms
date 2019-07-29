@@ -69,7 +69,7 @@ class LoginController extends Controller
             $user->getName();
             $user->getEmail();
             $user->getAvatar();
-dd($user,$token,$refreshToken,$expiresIn);
+
         } catch (\Exception $e) {
             return redirect('/login');
         }
