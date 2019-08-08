@@ -61719,14 +61719,18 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row justify-content-center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "THIS IS NEW"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, "MAKE THIS UPDATE"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "PhotoChoice"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "http://127.0.0.1:8000/storage/photos/2019/import-072319/IMG_5011.jpg",
+        "class": "img-fluid",
+        alt: "Responsive image"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, "This will contain a set of sub components that willmake the site look really really good!!"))));
+      }, "Contex Menu [choice 1] [choice 2] [choice 3]"))));
     }
   }]);
 

@@ -17,9 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::post('jwt/login', 'AuthenticateController@authenticate');
+
 Route::post('/foo', 'AuthenticateController@authenticate');
 
-// Route::middleware('auth:api')->get('/photoList', function (Request $request) {
-//     dd('here');
-// });
+Route::middleware('auth:api')->post('/login', 'AuthenticateController@login');
+
+
+// Route::post('login', 'AuthenticateController@login');
+Route::post('logout', 'AuthenticateController@logout');
+Route::post('refresh', 'AuthenticateController@refresh');
+Route::post('me', 'AuthenticateController@me');
+
+
+Route::post('foo', 'ApiDisplayPhotoController@foo');
