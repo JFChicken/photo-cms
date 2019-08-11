@@ -11,7 +11,7 @@ class checkPython extends Command
      *
      * @var string
      */
-    protected $signature = 'thumbnail:checkPython';
+    protected $signature = 'init';
 
     /**
      * The console command description.
