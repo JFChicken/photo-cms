@@ -50,7 +50,7 @@ class FileVaultCsvImport extends Command
         $this->info('Building csv from: '.$inputDir);
         $csvDir = storage_path() . '/app/public/import.csv';
         $this->info('csv file '.$csvDir);
-        $command = "exiftool -T -r -csv -n -filename -orientation -gpslatitude -gpslongitude -dateTimeOriginal {$inputDir} > {$csvDir}";
+        $command = "exiftool -T -r -csv -n -filename -orientation -GPSLatitude -GPSLongitude -dateTimeOriginal {$inputDir} > {$csvDir}";
         $result = shell_exec($command);
         
         $this->info('import CSV');

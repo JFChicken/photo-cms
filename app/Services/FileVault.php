@@ -253,6 +253,7 @@ class FileVault
                     $validCSV = ['SourceFile', 'FileName', 'Orientation', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'];
                     if ($row != $validCSV) {
                         // We likely have a miss mach of case sentitivity
+                        var_dump($row,$validCSV);
                         exit('bad CSV file');
                     }
                 } else {
@@ -336,7 +337,7 @@ class FileVault
             $command = "exiftool -s -Orientation {$inputFile}";
             $result = shell_exec($command);
 
-            echo "\n {$command} \n\t".$result.PHP_EOL;
+            // echo "\n {$command} \n\t".$result.PHP_EOL;
 
             #SYNC meta data to the new preview image file.
 
@@ -354,7 +355,7 @@ class FileVault
             $command = "exiftool -s -Orientation {$final}";
             $result = shell_exec($command);
 
-            echo "\n {$command} \n\t".$result.PHP_EOL;
+            // echo "\n {$command} \n\t".$result.PHP_EOL;
 
 
             // Orientate it
