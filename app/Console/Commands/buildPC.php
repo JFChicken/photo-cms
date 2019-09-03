@@ -31,15 +31,16 @@ class buildPC extends Command
         parent::__construct();
     }
 
-    protected function playerRace($client){
+    protected function playerRace($client)
+    {
         $response = $client->request('GET', 'races/');
         $body = $response->getBody()->getContents();
 
-        $body = json_decode($body,true);
+        $body = json_decode($body, true);
 
-        $pRace =[];
+        $pRace = [];
 
-        foreach ($body['results'] as $item){
+        foreach ($body['results'] as $item) {
             $pRace[] = $item['name'];
         }
 
@@ -48,38 +49,55 @@ class buildPC extends Command
             $pRace
         );
 
-        foreach ($body['results'] as $item){
-            if($playerRace === $item['name']){
+        foreach ($body['results'] as $item) {
+            if ($playerRace === $item['name']) {
                 return [
-                    'name'=>$playerRace,
-                    'url'=>$item['url']
+                    'name' => $playerRace,
+                    'url' => $item['url']
                 ];
             }
         }
     }
-    protected function getUrlId($url){
-        $url =parse_url ($url,PHP_URL_PATH);
-        $splitUrl = explode('/',$url);
+
+    protected function removeFromList($list, $item)
+    {
+        $newList = [];
+
+        foreach ($list as $value) {
+            if ($value != $item) {
+                $newList[] = $value;
+            }
+        }
+        return $newList;
+    }
+
+    protected function getUrlId($url)
+    {
+        $url = parse_url($url, PHP_URL_PATH);
+        $splitUrl = explode('/', $url);
         return $splitUrl[3];
     }
-    protected function playerSubRace($client,$url){
+
+    protected function playerSubRace($client, $url)
+    {
 
         $id = $this->getUrlId($url);
-        $response = $client->request('GET', 'races/'.$id);
+        $response = $client->request('GET', 'races/' . $id);
         $body = $response->getBody()->getContents();
 
-        $body = json_decode($body,true);
-return $body;
+        $body = json_decode($body, true);
+        return $body;
     }
 
-    protected function playerClass($client){
+    protected function playerClass($client)
+    {
         $response = $client->request('GET', 'classes/');
         $body = $response->getBody()->getContents();
 
-        $body = json_decode($body,true);
+        $body = json_decode($body, true);
 
-        $pClass =[];
-        foreach ($body['results'] as $item){
+        $pClass = [];
+        foreach ($body['results'] as $item) {
             $pClass[] = $item['name'];
         }
 
@@ -88,11 +106,11 @@ return $body;
             $pClass
         );
 
-        foreach ($body['results'] as $item){
-            if($playerClass === $item['name']){
+        foreach ($body['results'] as $item) {
+            if ($playerClass === $item['name']) {
                 return [
-                    'name'=>$playerClass,
-                    'url'=>$item['url']
+                    'name' => $playerClass,
+                    'url' => $item['url']
                 ];
             }
         }
@@ -101,68 +119,111 @@ return $body;
         return $playerClass;
     }
 
-    protected function playerClassBuild($client,$url){
+    protected function playerClassBuild($client, $url)
+    {
 
         $id = $this->getUrlId($url);
-        $response = $client->request('GET', 'classes/'.$id);
+        $response = $client->request('GET', 'classes/' . $id);
         $body = $response->getBody()->getContents();
 
-        $body = json_decode($body,true);
+        $body = json_decode($body, true);
 
 
-        foreach ($body['proficiency_choices'] as $proficiency){
+        $playerClassBuild = collect([
+            "name" => $body['name'],
+            "hit_die" => $body['hit_die'],
+            "proficiencies" => $body['proficiencies'],
+            "saving_throws" => $body['saving_throws'],
+            "starting_equipment" => $body['starting_equipment'],
+            "class_levels" => $body['class_levels'],
+            "subclasses" => $body['subclasses'],
+            "url" => $body['url'],
+        ]);
+
+        $buildChoices = [];
+        foreach ($body['proficiency_choices'] as $proficiency) {
             // build list then ask
-
-            $proficiency = collect($proficiency);
+            $listChoices = $proficiency['from'];
             $choices = $proficiency['choose'];
-            $flattened = $proficiency['from']->map(function ($item,$key) {
-                                dd($item,$key);
-                return nulll;
+            $type = $proficiency['type'];
+            $proficiency = collect($listChoices);
+
+            $choiceList = $proficiency->map(function ($item, $key) {
+                return $item['name'];
             });
+            $currentList = $choiceList->toArray();
+            $skillPicks = [];
+            while ($choices > 0) {
+                $skill = $this->choice(
+                    "Pick your {$type},Choice {$choices}:",
+                    $currentList
+                );
 
-            foreach ($proficiency['from']
-            )
-//
-//            $choiceList = $proficiency->map(function ($item, $key) {
-//                dd($item,$key);
-//
-//                return $item * 2;
-//            });
+                $currentList = $this->removeFromList($currentList, $skill);
+                $this->comment("picked: {$skill}");
 
+                $skillPicks[] = $proficiency->where('name', $skill)->flatten()->toArray();
+                $choices--;
+            }
+            $buildChoices[] = [
+                'type' => $type,
+                'picked' => $skillPicks,
+            ];
 
         }
-
-        // build proficiency_choices
-        // in proficiencies
-
-
-
-
-
-        return $body;
+        $playerClassBuild['skills'] = $buildChoices;
+        return $playerClassBuild;
     }
 
 
-    protected function stats($client){
+    protected function stats($client)
+    {
 
         $response = $client->request('GET', 'ability-scores/');
         $body = $response->getBody()->getContents();
 
-        $body = json_decode($body,true);
+        $body = json_decode($body, true);
 
+        $stats = collect($body['results']);
+        // Point buy
+        $points = 27;
+        $minStat = 8;
+        $maxStat = 15;
+
+        $headers = $stats->pluck('name')->toArray();
+
+        foreach ($headers as $key=>$value){
+            
+        }
+        $data=[
+            [1,2,3,4,5,6],
+            [8,8,8,8,8,8]
+        ];
+        /* Note: the following would work as well:
+        $data = [
+            ['Jim', 'Meh'],
+            ['Conchita', 'Fabulous']
+        ];
+        */
+
+        $this->table($headers, $data);
+
+        dd('this is info');
+// Manual way
         $stats = [];
         // build basics name and stats
-        foreach($body['results'] as $item){
+        foreach ($body['results'] as $item) {
 
-            $input = $this->ask('What is your: '.$item['name']);
+            $input = $this->ask('What is your: ' . $item['name']);
             $stats[] = [
-                'name'=>$item['name'],
-                'value'=>$input,
-                'url'=>$item['url']
+                'name' => $item['name'],
+                'value' => $input,
+                'url' => $item['url']
             ];
         }
-    return $stats;
+        return $stats;
     }
+
     /**
      * Execute the console command.
      *
@@ -170,28 +231,26 @@ return $body;
      */
     public function handle()
     {
-	    //
+        //
 
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => 'http://dnd5eapi.co/api/',
-            // You can set any number of default request options.
-            'timeout'  => 2.0,
         ]);
 
-//        $playerStats = $this->stats($client);
+        $playerStats = $this->stats($client);
 
-        $playerClass = $this->playerClass($client);
+//        $playerClass = $this->playerClass($client);
+//        $url = $playerClass['url'];
+//        $playerClass2 = $this->playerClassBuild($client, $url);
 
-        $playerClass2 = $this->playerClassBuild($client,$playerClass['url']);
 
-        dd($playerClass2);
 //        $playerRace = $this->playerRace($client);
 //        $this->playerSubRace($client,$playerRace['url']);
 
 
         // Build your Race
- return null;
+        return null;
 
     }
 }
