@@ -1,0 +1,23 @@
+.idea/
+	config/image.php
+	config/voyager.php
+	database/migrations/2016_01_01_000000_create_pages_table.php
+	database/migrations/2016_01_01_000000_create_posts_table.php
+	database/migrations/2016_02_15_204651_create_categories_table.php
+	database/migrations/2017_04_11_000000_alter_post_nullable_fields_table.php
+	database/seeds/CategoriesTableSeeder.php
+	database/seeds/DataRowsTableSeeder.php
+	database/seeds/DataTypesTableSeeder.php
+	database/seeds/MenuItemsTableSeeder.php
+	database/seeds/MenusTableSeeder.php
+	database/seeds/PagesTableSeeder.php
+	database/seeds/PermissionRoleTableSeeder.php
+	database/seeds/PermissionsTableSeeder.php
+	database/seeds/PostsTableSeeder.php
+	database/seeds/RolesTableSeeder.php
+	database/seeds/SettingsTableSeeder.php
+	database/seeds/TranslationsTableSeeder.php
+	database/seeds/UsersTableSeeder.php
+	database/seeds/VoyagerDatabaseSeeder.php
+	database/seeds/VoyagerDummyDatabaseSeeder.php
+	hooks/
