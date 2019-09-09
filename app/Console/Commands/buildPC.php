@@ -183,31 +183,45 @@ class buildPC extends Command
         $body = $response->getBody()->getContents();
 
         $body = json_decode($body, true);
-
         $stats = collect($body['results']);
         // Point buy
         $points = 27;
         $minStat = 8;
         $maxStat = 15;
-
+        $cost=[
+          8=>0,
+          9=>1,
+          10=>2,
+          11=>3,
+          12=>4,
+          13=>5,
+          14=>7,
+          15=>9,
+        ];
         $headers = $stats->pluck('name')->toArray();
-
-        foreach ($headers as $key=>$value){
-            
+        $data['level']=[];
+        foreach ($headers as $stat){
+            $data['level'][$stat]=$minStat;
         }
-        $data=[
-            [1,2,3,4,5,6],
-            [8,8,8,8,8,8]
-        ];
-        /* Note: the following would work as well:
-        $data = [
-            ['Jim', 'Meh'],
-            ['Conchita', 'Fabulous']
-        ];
-        */
 
-        $this->table($headers, $data);
+        $this->table($headers,$data );
+        $this->error("Points Remaining:\t {$points}");
 
+        // while looking at the points
+        while ($points>0){
+            $editStat = $this->choice(
+                "Pick what Stat to edit:",
+                $headers
+            );
+            // as for stat get number and then set new  number
+            $statLevel = $data['level'][$editStat];
+            dd($statLevel);
+            // Loop
+            $input = $this->ask("Set Stat :{$editStat}:");
+
+
+            dd($editStat);
+        }
         dd('this is info');
 // Manual way
         $stats = [];
