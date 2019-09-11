@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Validator;
 
 class buildPC extends Command
 {
@@ -175,6 +176,27 @@ class buildPC extends Command
         return $playerClassBuild;
     }
 
+    protected function askAgain(string $question, array $whatsValid = [])
+    {
+        $input = $this->ask($question);
+
+        $validator = Validator::make([
+            'input' => $input,
+        ], [
+            'input' => $whatsValid,
+        ]);
+dd($validator);
+        if ($validator->fails()) {
+            $this->error('::See error messages below::');
+
+            foreach ($validator->errors()->all() as $error) {
+                $this->comment($error);
+            }
+            return 1;
+        }
+
+        return $input;
+    }
 
     protected function stats($client)
     {
@@ -188,39 +210,54 @@ class buildPC extends Command
         $points = 27;
         $minStat = 8;
         $maxStat = 15;
-        $cost=[
-          8=>0,
-          9=>1,
-          10=>2,
-          11=>3,
-          12=>4,
-          13=>5,
-          14=>7,
-          15=>9,
+        $cost = [
+            8 => 0,
+            9 => 1,
+            10 => 2,
+            11 => 3,
+            12 => 4,
+            13 => 5,
+            14 => 7,
+            15 => 9,
         ];
         $headers = $stats->pluck('name')->toArray();
-        $data['level']=[];
-        foreach ($headers as $stat){
-            $data['level'][$stat]=$minStat;
+        $data['level'] = [];
+        foreach ($headers as $stat) {
+            $data['level'][$stat] = $minStat;
         }
 
-        $this->table($headers,$data );
+        $this->table($headers, $data);
         $this->error("Points Remaining:\t {$points}");
 
         // while looking at the points
-        while ($points>0){
+        while ($points > 0) {
+
             $editStat = $this->choice(
                 "Pick what Stat to edit:",
                 $headers
             );
             // as for stat get number and then set new  number
             $statLevel = $data['level'][$editStat];
-            dd($statLevel);
+
             // Loop
-            $input = $this->ask("Set Stat :{$editStat}:");
+            $this->info("Stat {$editStat} is set to {$statLevel}");
+
+            $name = $this->validate_cmd(function() {
+                return $this->ask('Enter name');
+            }, ['name','required']);
+//
+//            $question = "Set Stat :{$editStat} to this level:";
+//            $input = $this->askAgain(
+//                $question,[
+//                    'Stat'=>$editStat,
+//                    'Max'=>$maxStat,
+//                    'Min'=>$maxStat,
+//                ]
+//            );
 
 
-            dd($editStat);
+
+            $this->table($headers, $data);
         }
         dd('this is info');
 // Manual way
@@ -265,6 +302,40 @@ class buildPC extends Command
 
         // Build your Race
         return null;
+
+    }
+
+
+    /**
+     * Validate an input.
+     *
+     * @param  mixed   $method
+     * @param  array   $rules
+     * @return string
+     */
+    public function validate_cmd($method, $rules)
+    {
+        $value = $method();
+        $validate = $this->validateInput($rules, $value);
+
+        if ($validate !== true) {
+            $this->warn($validate);
+            $value = $this->validate_cmd($method, $rules);
+        }
+        return $value;
+    }
+
+    public function validateInput($rules, $value)
+    {
+
+        $validator = \Validator::make([$rules[0] => $value], [ $rules[0] => $rules[1] ]);
+
+        if ($validator->fails()) {
+            $error = $validator->errors();
+            return $error->first($rules[0]);
+        }else{
+            return true;
+        }
 
     }
 }
